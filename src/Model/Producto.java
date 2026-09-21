@@ -85,9 +85,22 @@ public class Producto {
     }
 
     // Consultar productos
+    // Consultar / Buscar producto por CÓDIGO
+    public static Producto buscarPorCodigo(String codigo) {
+        for (Producto p : ProductoLista) {
+            if (p.getCodigo().equalsIgnoreCase(codigo)) {
+                return p; 
+            }
+        }
+        return null; 
+    }
+
+    //ver productos
+
     public static List<Producto> obtenerProductos() {
         return ProductoLista;
     }
+    
 
     // Actualizar producto
     public static boolean actualizarProducto(Producto productoEditado) {
