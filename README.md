@@ -9,7 +9,7 @@ La ferretería "El Constructor" es un negocio local dedicado a la venta de herra
 
 ### Estructura que se manejó
 
-[Diagrama](docs/Diagrama.svg)
+![Diagrama](docs/Diagrama.svg)
 
 La estructura que utilizamos es muy similar al ejemplo planteado en el ejercicio, sin embargo, hicimos algunos cambios que no cambian la funcionalidad si no que la hacen más ordenada. Nuestra estructura mantiene la separación de cada responsabilid entre las carpetas. Las clases del modelo manejan los datos y las operaciones relacionadas, los controladores se ponen de acuerdo con los datos en modelo y las vistas se encargan únicamente de interactuar con el usuario.
 
