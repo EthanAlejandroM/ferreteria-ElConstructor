@@ -7,7 +7,42 @@ La ferretería "El Constructor" es un negocio local dedicado a la venta de herra
 * Nicolle Mera Gomez
 * Ethan Alejandro Mezu
 
-### Estructura que se manejó
+
+## Estructura
+
+```text
+ferreteria-ElConstructor/
+│
+├── .vscode/
+│   └── settings.json
+│
+├── bin/
+├── docs/
+│   └── Diagrama.svg
+│
+├── src/
+│   ├── Controller/
+│   │   ├── ProductoController.java
+│   │   └── VentaController.java
+│   │
+│   ├── Model/
+│   │   ├── DescripcionVenta.java
+│   │   ├── Inventario.java
+│   │   ├── Producto.java
+│   │   ├── Venta.java
+│   │   └── VentaDao.java
+│   │
+│   └── View/
+│       ├── MainView.java
+│       ├── ProductoView.java
+│       └── VentaView.java
+│
+├── App.java
+├── .gitignore
+└── README.md
+```
+
+### Justificación
 
 ![Diagrama](docs/Diagrama.svg)
 
@@ -16,3 +51,5 @@ La estructura que utilizamos es muy similar al ejemplo planteado en el ejercicio
 Hubo un cambio en especifico el cual requería "listar productos". Inicialmente lo manejamos como un listado de los productos con los atributos y los datos registrados, sin embargo observamos que era un poco desordenado de ver, así que en su lugarcambiamos el nombre a "consultar inventario" en donde la funcionalidad es basicamente la misma, pero ordenada en una tabla tipo String donde se pueden visualizar todos los atributos de los productos registrados. Esto se hizo con el fin de no tener duplicados en las funcionalidades.
 
 Al final, al observar y poner a prueba los resultados en la consola, se puede observar que todo funciona correctamente.
+
+
