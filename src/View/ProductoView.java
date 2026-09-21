@@ -1,4 +1,3 @@
-
 package View;
 
 import Controller.ProductoController;
@@ -10,10 +9,13 @@ import java.util.Scanner;
 public class ProductoView {
 
     private Scanner scanner;
+
     private ProductoController controller;
 
     public ProductoView() {
+
         scanner = new Scanner(System.in);
+
         controller = new ProductoController();
     }
 
@@ -22,14 +24,18 @@ public class ProductoView {
         int opcion;
 
         do {
-            System.out.println("GESTION DE PRODUCTOS");
+
+            System.out.println();
+
+            System.out.println("\n GESTION DE PRODUCTOS");
             System.out.println("------------------------");
             System.out.println("1. Registrar producto");
             System.out.println("2. Buscar producto por codigo");
-            System.out.println("3. Listar productos");
+            System.out.println("3. Consultar inventario");
             System.out.println("4. Actualizar producto");
             System.out.println("5. Eliminar producto");
             System.out.println("6. Salir");
+
             System.out.print("Seleccione una opción: ");
 
             opcion = scanner.nextInt();
@@ -46,7 +52,7 @@ public class ProductoView {
                     break;
 
                 case 3:
-                    listarProductos();
+                    consultarInventario();
                     break;
 
                 case 4:
@@ -71,8 +77,8 @@ public class ProductoView {
     private void registrarProducto() {
 
         System.out.println("\n REGISTRAR PRODUCTO");
-
         System.out.print("ID: ");
+
         int id = scanner.nextInt();
         scanner.nextLine();
 
@@ -105,6 +111,7 @@ public class ProductoView {
 
         if (registrado) {
             System.out.println("Producto registrado!");
+
         } else {
             System.out.println("No se pudo registrar el producto.");
         }
@@ -113,41 +120,90 @@ public class ProductoView {
     private void buscarProducto() {
 
         System.out.println("\n BUSCAR PRODUCTO");
-
         System.out.print("Ingrese el codigo: ");
         String codigo = scanner.nextLine();
-
         Producto producto = controller.buscarPorCodigo(codigo);
 
         if (producto != null) {
+
             System.out.println("\nProducto encontrado:");
             mostrarProducto(producto);
+
         } else {
             System.out.println("No hay ningun producto con ese código.");
         }
     }
 
-    private void listarProductos() {
+    private void consultarInventario() {
 
-        System.out.println("\n LISTA DE PRODUCTOS REGISTRADOS");
-
+        System.out.println("\n CONSULTAR INVENTARIO");
         List<Producto> productos = controller.obtenerProductos();
 
         if (productos.isEmpty()) {
-            System.out.println("No hay productos registrados.");
+
+            System.out.println("No hay productos registrados en el inventario.");
             return;
         }
 
-        for (Producto producto : productos) {
-            mostrarProducto(producto);
-            System.out.println("-------------------------------");
+        String[][] inventario =
+                new String[productos.size() + 1][6];
+
+        inventario[0][0] = "ID";
+        inventario[0][1] = "CODIGO";
+        inventario[0][2] = "NOMBRE";
+        inventario[0][3] = "CATEGORIA";
+        inventario[0][4] = "PRECIO";
+        inventario[0][5] = "STOCK";
+
+        for (int i = 0; i < productos.size(); i++) {
+
+            Producto producto = productos.get(i);
+
+            inventario[i + 1][0] = String.valueOf(producto.getId());
+            inventario[i + 1][1] = producto.getCodigo();
+            inventario[i + 1][2] = producto.getNombre();
+            inventario[i + 1][3] = producto.getCategoria();
+            inventario[i + 1][4] = String.valueOf(producto.getPrecio());
+            inventario[i + 1][5] = String.valueOf(producto.getStock());
         }
+
+        System.out.println();
+        System.out.println(
+                "======================================================================"
+        );
+
+        for (int i = 0; i < inventario.length; i++) {
+
+            System.out.printf(
+                    "%-6s %-10s %-15s %-15s %-12s %-8s%n",
+                    inventario[i][0],
+                    inventario[i][1],
+                    inventario[i][2],
+                    inventario[i][3],
+                    inventario[i][4],
+                    inventario[i][5]
+            );
+
+            if (i == 0) {
+
+                System.out.println(
+                        "----------------------------------------------------------------------"
+                );
+            }
+        }
+
+        System.out.println(
+                "======================================================================"
+        );
+
+        System.out.println(
+                "Total de productos: " + productos.size()
+        );
     }
 
     private void actualizarProducto() {
 
         System.out.println("\n ACTUALIZAR PRODUCTO");
-
         System.out.print("Ingrese el ID del producto: ");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -155,6 +211,7 @@ public class ProductoView {
         Producto producto = null;
 
         for (Producto p : controller.obtenerProductos()) {
+
             if (p.getId() == id) {
                 producto = p;
                 break;
@@ -168,18 +225,16 @@ public class ProductoView {
 
         System.out.print("Nuevo codigo: ");
         String codigo = scanner.nextLine();
-
         System.out.print("Nuevo nombre: ");
         String nombre = scanner.nextLine();
-
         System.out.print("Nueva categoria: ");
         String categoria = scanner.nextLine();
-
         System.out.print("Nuevo precio: ");
         double precio = scanner.nextDouble();
-
         System.out.print("Nuevo stock: ");
+
         int stock = scanner.nextInt();
+
         scanner.nextLine();
 
         Producto productoEditado = new Producto(
@@ -191,18 +246,22 @@ public class ProductoView {
                 stock
         );
 
-        boolean actualizado = controller.actualizarProducto(productoEditado);
+        boolean actualizado =
+                controller.actualizarProducto(productoEditado);
 
         if (actualizado) {
+
             System.out.println("Producto actualizado!");
+
         } else {
+
             System.out.println("No se pudo actualizar el producto :(");
         }
     }
 
     private void eliminarProducto() {
 
-        System.out.println("\n  ELIMINAR PRODUCTO ");
+        System.out.println("\n ELIMINAR PRODUCTO");
 
         System.out.print("Ingrese el ID del producto: ");
         int id = scanner.nextInt();
@@ -212,6 +271,7 @@ public class ProductoView {
 
         if (eliminado) {
             System.out.println("Producto eliminado!");
+
         } else {
             System.out.println("No se encontro ningún producto con ese ID :(");
         }
@@ -227,4 +287,3 @@ public class ProductoView {
         System.out.println("Stock: " + producto.getStock());
     }
 }
-
